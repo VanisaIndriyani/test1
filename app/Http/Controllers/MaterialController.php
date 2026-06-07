@@ -26,6 +26,8 @@ class MaterialController extends Controller
             'stok' => 'required|numeric',
             'lead_time' => 'required|numeric',
             'periode' => 'required|numeric',
+            'usage_rate' => 'required|numeric',
+            'safety_stock' => 'required|numeric',
         ]);
 
         $material = Material::create($request->all());
@@ -47,6 +49,8 @@ class MaterialController extends Controller
             'stok' => 'required|numeric',
             'lead_time' => 'required|numeric',
             'periode' => 'required|numeric',
+            'usage_rate' => 'required|numeric',
+            'safety_stock' => 'required|numeric',
         ]);
 
         $material->update($request->all());

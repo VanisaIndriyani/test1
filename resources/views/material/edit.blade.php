@@ -42,6 +42,14 @@
                     <label class="form-label">Periode Pemakaian (Hari/Bulan)</label>
                     <input type="number" name="periode" class="form-control" required value="{{ old('periode', $material->periode) }}">
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-teal fw-bold">Usage Rate (Manual)</label>
+                    <input type="number" step="0.01" name="usage_rate" class="form-control border-teal" required value="{{ old('usage_rate', $material->usage_rate) }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-teal fw-bold">Safety Stock (Manual)</label>
+                    <input type="number" step="0.01" name="safety_stock" class="form-control border-teal" required value="{{ old('safety_stock', $material->safety_stock) }}">
+                </div>
             </div>
 
             <div class="mt-4">
