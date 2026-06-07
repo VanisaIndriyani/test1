@@ -84,7 +84,7 @@
                             $badgeClass = '';
                             if($material->status == 'Aman') $badgeClass = 'bg-success';
                             elseif($material->status == 'Warning') $badgeClass = 'bg-warning text-dark';
-                            elseif($material->status == 'Reorder/Kritis') $badgeClass = 'bg-danger';
+                            elseif($material->status == 'Reorder/Kritis' || $material->status == 'Stock Out') $badgeClass = 'bg-danger';
                             else $badgeClass = 'bg-dark';
                         @endphp
                         <span class="badge rounded-pill {{ $badgeClass }} px-3 py-2" style="font-size: 11px;">{{ $material->status }}</span>

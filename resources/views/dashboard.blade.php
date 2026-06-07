@@ -104,7 +104,7 @@
                                         $badgeClass = '';
                                         if($item->status == 'Aman') $badgeClass = 'bg-success';
                                         elseif($item->status == 'Warning') $badgeClass = 'bg-warning text-dark';
-                                        elseif($item->status == 'Reorder/Kritis') $badgeClass = 'bg-danger';
+                                        elseif($item->status == 'Reorder/Kritis' || $item->status == 'Stock Out') $badgeClass = 'bg-danger';
                                         else $badgeClass = 'bg-dark';
                                     @endphp
                                     <span class="badge rounded-pill {{ $badgeClass }} px-3 py-2">{{ $item->status }}</span>
@@ -179,8 +179,8 @@
                 backgroundColor: [
                     '#198754', // Aman
                     '#ffc107', // Warning
-                    '#dc3545', // Kritis
-                    '#212529'  // Stock Out
+                    '#dc3545', // Kritis (Reorder)
+                    '#b02a37'  // Stock Out (Merah Tua)
                 ],
                 borderWidth: 1
             }]
