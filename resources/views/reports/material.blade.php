@@ -77,8 +77,8 @@
                     <td class="fw-bold">{{ $material->nama_material }}</td>
                     <td>{{ $material->departemen }}</td>
                     <td class="text-center fw-bold">{{ $material->stok }}</td>
-                    <td class="text-center">{{ number_format($material->usage_rate, 2) }}</td>
-                    <td class="text-center">{{ number_format($material->rop, 2) }}</td>
+                    <td class="text-center">{{ number_format($material->usage_rate, 0, ',', '.') }}</td>
+                    <td class="text-center">{{ number_format($material->rop, 0, ',', '.') }}</td>
                     <td class="text-center">
                         @php
                             $badgeClass = '';

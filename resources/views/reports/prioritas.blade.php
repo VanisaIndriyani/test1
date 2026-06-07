@@ -76,8 +76,8 @@
                     <td class="fw-bold text-teal text-center">{{ $material->kode_material }}</td>
                     <td class="fw-bold">{{ $material->nama_material }}</td>
                     <td class="text-center fw-bold">{{ $material->stok }}</td>
-                    <td class="text-center">{{ number_format($material->safety_stock, 2) }}</td>
-                    <td class="text-center">{{ number_format($material->rop, 2) }}</td>
+                    <td class="text-center">{{ number_format($material->safety_stock, 0, ',', '.') }}</td>
+                    <td class="text-center">{{ number_format($material->rop, 0, ',', '.') }}</td>
                     <td class="text-center">
                         @php
                             $badgeClass = '';
