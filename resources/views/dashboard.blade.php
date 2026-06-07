@@ -102,9 +102,10 @@
                                 <td class="pe-4 text-end">
                                     @php
                                         $badgeClass = '';
-                                        if($item->status == 'Aman') $badgeClass = 'bg-success';
-                                        elseif($item->status == 'Warning') $badgeClass = 'bg-warning text-dark';
-                                        elseif($item->status == 'Reorder/Kritis' || $item->status == 'Stock Out') $badgeClass = 'bg-danger';
+                                        $status = strtolower($item->status);
+                                        if(str_contains($status, 'aman')) $badgeClass = 'bg-success';
+                                        elseif(str_contains($status, 'warning')) $badgeClass = 'bg-warning text-dark';
+                                        elseif(str_contains($status, 'kritis') || str_contains($status, 'reorder') || str_contains($status, 'stock out')) $badgeClass = 'bg-danger';
                                         else $badgeClass = 'bg-dark';
                                     @endphp
                                     <span class="badge rounded-pill {{ $badgeClass }} px-3 py-2">{{ $item->status }}</span>

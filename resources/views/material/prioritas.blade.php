@@ -36,9 +36,10 @@
                         <td class="text-center">
                             @php
                                 $badgeClass = '';
-                                if($material->status == 'Aman') $badgeClass = 'bg-success';
-                                elseif($material->status == 'Warning') $badgeClass = 'bg-warning text-dark';
-                                elseif($material->status == 'Reorder/Kritis' || $material->status == 'Stock Out') $badgeClass = 'bg-danger';
+                                $status = strtolower($material->status);
+                                if(str_contains($status, 'aman')) $badgeClass = 'bg-success';
+                                elseif(str_contains($status, 'warning')) $badgeClass = 'bg-warning text-dark';
+                                elseif(str_contains($status, 'kritis') || str_contains($status, 'reorder') || str_contains($status, 'stock out')) $badgeClass = 'bg-danger';
                                 else $badgeClass = 'bg-dark';
                             @endphp
                             <span class="badge rounded-pill {{ $badgeClass }} px-3 py-2">{{ $material->status }}</span>
