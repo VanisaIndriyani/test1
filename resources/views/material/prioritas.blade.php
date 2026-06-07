@@ -8,50 +8,46 @@
     <p class="text-muted">Daftar material yang harus segera dipesan berdasarkan tingkat kekritisan.</p>
 </div>
 
-<div class="card">
-    <div class="card-body">
+<div class="card border-0 shadow-sm" style="border-radius: 20px;">
+    <div class="card-body p-4">
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
+            <table class="table table-hover align-middle datatable">
+                <thead class="bg-light">
                     <tr>
-                        <th>Ranking</th>
-                        <th>Kode</th>
-                        <th>Nama Material</th>
-                        <th>Stok</th>
-                        <th>Safety Stock</th>
-                        <th>ROP</th>
-                        <th>Status</th>
-                        <th>Rekomendasi</th>
+                        <th class="ps-4 py-3 small text-uppercase text-muted">Ranking</th>
+                        <th class="py-3 small text-uppercase text-muted">Kode</th>
+                        <th class="py-3 small text-uppercase text-muted">Nama Material</th>
+                        <th class="py-3 small text-uppercase text-muted text-center">Stok</th>
+                        <th class="py-3 small text-uppercase text-muted text-center">Safety Stock</th>
+                        <th class="py-3 small text-uppercase text-muted text-center">ROP</th>
+                        <th class="py-3 small text-uppercase text-muted text-center">Status</th>
+                        <th class="pe-4 py-3 small text-uppercase text-muted text-center">Rekomendasi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($materials as $index => $material)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $material->kode_material }}</td>
-                        <td>{{ $material->nama_material }}</td>
-                        <td>{{ $material->stok }}</td>
-                        <td>{{ number_format($material->safety_stock, 2) }}</td>
-                        <td>{{ number_format($material->rop, 2) }}</td>
-                        <td>
+                        <td class="ps-4 text-center fw-bold">{{ $index + 1 }}</td>
+                        <td class="fw-bold text-teal">{{ $material->kode_material }}</td>
+                        <td class="fw-bold text-dark">{{ $material->nama_material }}</td>
+                        <td class="text-center fw-bold">{{ $material->stok }}</td>
+                        <td class="text-center">{{ number_format($material->safety_stock, 2) }}</td>
+                        <td class="text-center fw-bold text-primary">{{ number_format($material->rop, 2) }}</td>
+                        <td class="text-center">
                             @php
                                 $badgeClass = '';
-                                if($material->status == 'Aman') $badgeClass = 'badge-aman';
-                                elseif($material->status == 'Warning') $badgeClass = 'badge-warning';
-                                elseif($material->status == 'Reorder/Kritis') $badgeClass = 'badge-kritis';
-                                else $badgeClass = 'badge-stockout';
+                                if($material->status == 'Aman') $badgeClass = 'bg-success';
+                                elseif($material->status == 'Warning') $badgeClass = 'bg-warning text-dark';
+                                elseif($material->status == 'Reorder/Kritis') $badgeClass = 'bg-danger';
+                                else $badgeClass = 'bg-dark';
                             @endphp
-                            <span class="badge {{ $badgeClass }}">{{ $material->status }}</span>
+                            <span class="badge rounded-pill {{ $badgeClass }} px-3 py-2">{{ $material->status }}</span>
                         </td>
-                        <td>
-                            @if($material->status == 'Stock Out')
-                                <span class="text-danger fw-bold">Segera Order! (Stok Habis)</span>
-                            @elseif($material->status == 'Reorder/Kritis')
-                                <span class="text-danger fw-bold">Segera Order! (Di bawah Safety Stock)</span>
-                            @elseif($material->status == 'Warning')
-                                <span class="text-warning fw-bold">Siapkan Order (Di bawah ROP)</span>
+                        <td class="pe-4 text-center">
+                            @if($material->status == 'Aman')
+                                <span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Stok Aman</span>
                             @else
-                                <span class="text-success">Stok Aman</span>
+                                <span class="text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> Perlu Pengadaan</span>
                             @endif
                         </td>
                     </tr>
