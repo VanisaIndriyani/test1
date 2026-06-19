@@ -15,6 +15,17 @@ class BarangMasuk extends Model
         'petugas',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($barangMasuk) {
+            $barangMasuk->material?->tambahStok($barangMasuk->jumlah_masuk);
+        });
+
+        static::deleted(function ($barangMasuk) {
+            $barangMasuk->material?->kurangiStok($barangMasuk->jumlah_masuk);
+        });
+    }
+
     public function material()
     {
         return $this->belongsTo(Material::class);

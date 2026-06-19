@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BarangMasuk;
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangMasukController extends Controller
 {
@@ -22,7 +23,7 @@ class BarangMasukController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'tanggal' => 'required|date',
             'nomor_po' => 'required',
             'supplier' => 'required',
@@ -31,26 +32,19 @@ class BarangMasukController extends Controller
             'petugas' => 'required',
         ]);
 
-        $barangMasuk = BarangMasuk::create($request->all());
-
-        // Update Stok
-        $material = Material::find($request->material_id);
-        $material->stok += $request->jumlah_masuk;
-        $material->save();
-        $material->updateInventoryStatus();
+        DB::transaction(function () use ($validated) {
+            BarangMasuk::create($validated);
+        });
 
         return redirect()->route('barang-masuk.index')->with('success', 'Barang Masuk berhasil dicatat.');
     }
 
     public function destroy(BarangMasuk $barangMasuk)
     {
-        // Revert Stok
-        $material = $barangMasuk->material;
-        $material->stok -= $barangMasuk->jumlah_masuk;
-        $material->save();
-        $material->updateInventoryStatus();
+        DB::transaction(function () use ($barangMasuk) {
+            $barangMasuk->delete();
+        });
 
-        $barangMasuk->delete();
         return redirect()->route('barang-masuk.index')->with('success', 'Barang Masuk berhasil dihapus.');
     }
 }

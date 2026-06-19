@@ -30,6 +30,20 @@ class Material extends Model
         return $this->hasMany(BarangKeluar::class);
     }
 
+    public function tambahStok($jumlah)
+    {
+        $this->stok += $jumlah;
+        $this->save();
+        $this->updateInventoryStatus();
+    }
+
+    public function kurangiStok($jumlah)
+    {
+        $this->stok -= $jumlah;
+        $this->save();
+        $this->updateInventoryStatus();
+    }
+
     public function updateInventoryStatus()
     {
         // ROP = (Usage Rate x Lead Time) + Safety Stock
